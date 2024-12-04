@@ -1,4 +1,4 @@
-interface GTMEvent {
+export interface GTMEvent {
   event: string;
   eventCategory: string;
   eventAction: string;
@@ -6,7 +6,7 @@ interface GTMEvent {
   [key: string]: any;
 }
 
-interface VehicleEvent extends GTMEvent {
+export interface VehicleEvent extends GTMEvent {
   vehicleId: string;
   vehicleName: string;
   vehiclePrice?: number;
@@ -15,13 +15,9 @@ interface VehicleEvent extends GTMEvent {
   listPosition?: number;
 }
 
-interface LeadEvent extends GTMEvent {
+export interface LeadEvent extends GTMEvent {
   leadType: string;
   preferredContact?: string;
-}
-
-interface Window {
-  dataLayer: (GTMEvent | VehicleEvent | LeadEvent)[];
 }
 
 declare global {

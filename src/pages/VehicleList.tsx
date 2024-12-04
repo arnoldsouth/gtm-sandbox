@@ -15,6 +15,7 @@ import {
   Select,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import type { VehicleEvent, GTMEvent } from "../types/gtm";
 
 const VehicleList = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const VehicleList = () => {
   const [sortBy, setSortBy] = useState("price-asc");
 
   const trackVehicleView = (vehicleId: string, vehicleName: string) => {
-    window.dataLayer?.push({
+    const event: VehicleEvent = {
       event: "vehicle_view",
       eventCategory: "Vehicle Interaction",
       eventAction: "View Details",
@@ -31,17 +32,21 @@ const VehicleList = () => {
       vehicleName: vehicleName,
       listName: "Vehicle Inventory",
       listPosition: vehicles.findIndex((v) => v.id === vehicleId) + 1,
-    });
+    };
+    window.dataLayer?.push(event);
     navigate(`/vehicles/${vehicleId}`);
   };
 
   const trackInventoryFilter = (filterType: string, filterValue: string) => {
-    window.dataLayer?.push({
+    const event: GTMEvent = {
       event: "inventory_filter",
       eventCategory: "Inventory Interaction",
       eventAction: "Filter",
       eventLabel: `${filterType}: ${filterValue}`,
-    });
+      filterType,
+      filterValue,
+    };
+    window.dataLayer?.push(event);
   };
 
   const vehicles = [

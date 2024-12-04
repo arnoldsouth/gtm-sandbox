@@ -14,6 +14,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import type { LeadEvent } from "../types/gtm";
 
 interface FormData {
   firstName: string;
@@ -49,14 +50,15 @@ const ContactForm = () => {
   };
 
   const trackFormSubmission = () => {
-    window.dataLayer?.push({
+    const event: LeadEvent = {
       event: "lead_form_submit",
       eventCategory: "Lead Generation",
       eventAction: "Form Submit",
       eventLabel: formData.inquiryType,
       leadType: formData.inquiryType,
       preferredContact: formData.preferredContact,
-    });
+    };
+    window.dataLayer?.push(event);
   };
 
   const handleSubmit = (event: React.FormEvent) => {

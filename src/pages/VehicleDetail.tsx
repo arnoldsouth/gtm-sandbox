@@ -14,6 +14,7 @@ import {
   TableRow,
   Chip,
 } from "@mui/material";
+import type { VehicleEvent } from "../types/gtm";
 
 const VehicleDetail = () => {
   const { id } = useParams();

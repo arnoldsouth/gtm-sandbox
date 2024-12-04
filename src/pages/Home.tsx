@@ -9,31 +9,36 @@ import {
   Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import type { VehicleEvent } from "../types/gtm";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const trackVehicleView = (vehicleId: string, vehicleName: string) => {
-    window.dataLayer?.push({
+    const event: VehicleEvent = {
       event: "vehicle_view",
       eventCategory: "Vehicle Interaction",
       eventAction: "View Details",
       eventLabel: vehicleName,
       vehicleId: vehicleId,
       vehicleName: vehicleName,
-    });
+      listName: "Featured Vehicles",
+      listPosition: featuredVehicles.findIndex((v) => v.id === vehicleId) + 1,
+    };
+    window.dataLayer?.push(event);
     navigate(`/vehicles/${vehicleId}`);
   };
 
   const trackTestDrive = (vehicleId: string, vehicleName: string) => {
-    window.dataLayer?.push({
+    const event: VehicleEvent = {
       event: "test_drive_request",
       eventCategory: "Lead Generation",
       eventAction: "Test Drive Request",
       eventLabel: vehicleName,
       vehicleId: vehicleId,
       vehicleName: vehicleName,
-    });
+    };
+    window.dataLayer?.push(event);
     navigate("/contact");
   };
 
